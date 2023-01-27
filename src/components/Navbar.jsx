@@ -6,12 +6,27 @@ import Logo from '../assets/images/Logo.png';
 
 function Navbar() {
   return (
-    <Stack>
+    <Stack
+      direction={'row'}
+      justifyContent={'space-around'}
+      sx={{
+        gap: {
+          sm: '122px',
+          xs: '20px',
+        },
+        mt: {
+          sm: '32px',
+          sx: '20px',
+        },
+        justifyContent: 'none',
+      }}
+      px='2rem'
+    >
       <Link to='/'>
         <img
           src={Logo}
           alt='logo'
-          style={{ width: '48px', margin: '0 20px' }}
+          style={{ width: '200px', margin: '0 30px' }}
         />
       </Link>
       <Stack
@@ -35,7 +50,7 @@ function Navbar() {
           style={{ textDecoration: 'none', color: '#3A1212' }}
         ></Link>
         <Link
-          to='/exercise'
+          to='#exercises'
           style={{ textDecoration: 'none', color: '#3A1212' }}
         >
           Exercises

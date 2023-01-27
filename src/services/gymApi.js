@@ -16,13 +16,31 @@ export const gymApi = createApi({
   reducerPath: 'gymApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
+    getAllWorkouts: builder.query({
+      query: () => makeApiCall(`/exercises`),
+    }),
+    getSingleWorkout: builder.query({
+      query: (id) => makeApiCall(`/exercises/exercise/${id}`),
+    }),
+    getTargetWorkout: builder.query({
+      query: (target) => makeApiCall(`/exercises/target/${target}`),
+    }),
+    getEquipmentWorkout: builder.query({
+      query: (equipment) => makeApiCall(`/exercises/equipment/${equipment}`),
+    }),
     getGymCategories: builder.query({
       query: () => makeApiCall(`/exercises/bodyPartList`),
     }),
   }),
 });
 
-export const { useGetGymCategoriesQuery } = gymApi;
+export const {
+  useGetGymCategoriesQuery,
+  useGetAllWorkoutsQuery,
+  useGetSingleWorkoutQuery,
+  useGetTargetWorkoutQuery,
+  useGetEquipmentWorkoutQuery,
+} = gymApi;
 
 // RAPID API CODE SNIPPET FOR THE EXERCISEDB
 
