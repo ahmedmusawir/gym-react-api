@@ -1,19 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import HorizontalScrollbar from './HorizontalScrollbar';
+import HorizontalScrollbar from '../HorizontalScrollbar';
+import {
+  useGetAllWorkoutsQuery,
+  useGetGymCategoriesQuery,
+} from '../../services/gymApi';
+import { exercisesData } from '../../data/exercisesData';
+// import { bodyPartsData } from '../data/bodyPartsData';
 
-const SearchExercises = ({
-  exercises,
-  setExercises,
-  bodyPart,
-  setBodyPart,
-  bodyParts,
-}) => {
+const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState('');
+  const [bodyParts, setBodyParts] = useState([]);
+
+  // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
+
+  // const { data: gymWorkouts, isFetching: isFetchingAllWorkouts } =
+  //   useGetAllWorkoutsQuery();
+  // console.log('Exercise Data', gymWorkouts);
+  const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
+    useGetGymCategoriesQuery();
+  console.log('BodyParts Data', bodyPartsData);
+
+  // console.log('Exercise Local Data', gymWorkouts);
+  // console.log('Exercise Categories Local Data', gymCats);
+
+  useEffect(() => {
+    // setBodyParts(bodyPartsData);
+    // setBodyParts(['all', ...bodyPartsData]);
+  }, [bodyPartsData]);
 
   const handleSearch = () => {
     if (search) {
-      const searchExercises = exercises?.filter(
+      const searchExercises = exercisesData?.filter(
         (exercise) =>
           exercise.name.toLowerCase().includes(search) ||
           exercise.target.toLowerCase().includes(search) ||
@@ -27,7 +45,8 @@ const SearchExercises = ({
   };
 
   // console.log('Search result:', exercises);
-  // console.log('Body Parts:', bodyParts);
+  if (isFetchingBodyParts) return 'Loading...';
+  // if (isFetchingAllWorkouts || isFetchingGymCats) return 'Loading...';
 
   return (
     <Stack alignItems={'center'} mt='37px' justifyContent={'center'} p='20px'>

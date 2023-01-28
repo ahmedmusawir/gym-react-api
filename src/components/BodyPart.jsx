@@ -3,8 +3,8 @@ import { Stack, Typography } from '@mui/material';
 import Icon from '../assets/icons/gym.png';
 
 const BodyPart = ({ item, bodyPart, setBodyPart }) => {
-  //   console.log('Item:', item);
-  //   console.log('bodyPart:', bodyPart);
+  // console.log('Item:', item);
+  // console.log('bodyPart:', bodyPart);
   return (
     <Stack
       type='button'
@@ -16,10 +16,10 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => {
 
         backgroundColor: '#fff',
         borderBottomLeftRadius: '20px',
-        width: '270px',
-        height: '280px',
+        width: '260px',
+        height: '260px',
         cursor: 'pointer',
-        gap: '47px',
+        gap: '25px',
       }}
     >
       <img
@@ -27,6 +27,14 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => {
         alt='dumbbell'
         style={{ width: '40px', height: '40px' }}
       />
+      <Typography
+        fontSize={'22px'}
+        fontWeight='bold'
+        color={'#3A1212'}
+        textTransform='capitalize'
+      >
+        {item}
+      </Typography>
     </Stack>
   );
 };

@@ -1,33 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import HorizontalScrollbar from './HorizontalScrollbar';
+import Exercises from './Exercises';
+
 import {
   useGetAllWorkoutsQuery,
   useGetGymCategoriesQuery,
 } from '../services/gymApi';
 import { exercisesData } from '../data/exercisesData';
-// import { bodyPartsData } from '../data/bodyPartsData';
+import { bodyPartsData } from '../data/bodyPartsData';
 
-const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+const SearchExercises = ({
+  exercises,
+  setExercises,
+  bodyPart,
+  setBodyPart,
+  bodyPartsData,
+}) => {
+  // const [exercises, setExercises] = useState([]);
   const [search, setSearch] = useState('');
-  const [bodyParts, setBodyParts] = useState([]);
 
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
 
-  // const { data: gymWorkouts, isFetching: isFetchingAllWorkouts } =
+  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
   //   useGetAllWorkoutsQuery();
-  // console.log('Exercise Data', gymWorkouts);
-  const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
-    useGetGymCategoriesQuery();
-  console.log('BodyParts Data', bodyPartsData);
+  // const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
+  //   useGetGymCategoriesQuery();
 
   // console.log('Exercise Local Data', gymWorkouts);
   // console.log('Exercise Categories Local Data', gymCats);
-
-  useEffect(() => {
-    // setBodyParts(bodyPartsData);
-    // setBodyParts(['all', ...bodyPartsData]);
-  }, [bodyPartsData]);
 
   const handleSearch = () => {
     if (search) {
@@ -44,9 +45,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
     }
   };
 
-  // console.log('Search result:', exercises);
-  if (isFetchingBodyParts) return 'Loading...';
-  // if (isFetchingAllWorkouts || isFetchingGymCats) return 'Loading...';
+  console.log('Search result:', exercises);
+  // if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
 
   return (
     <Stack alignItems={'center'} mt='37px' justifyContent={'center'} p='20px'>
@@ -95,7 +95,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       </Box>
       <Box sx={{ position: 'relative', width: '100%', p: '20px' }}>
         <HorizontalScrollbar
-          data={bodyParts}
+          data={['all', ...bodyPartsData]}
           bodyPart={bodyPart}
           setBodyPart={setBodyPart}
         />
