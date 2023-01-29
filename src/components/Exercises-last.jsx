@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
-import { useGetAllProductsQuery } from '../services/dummyJsonApi';
+import { useGetAllWorkoutsQuery } from '../services/gymApi';
 import ExerciseCard from './ExerciseCard';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllProductsQuery();
+    useGetAllWorkoutsQuery();
 
   useEffect(() => {
     if (exercisesData) {
-      setExercises(exercisesData?.products);
+      setExercises(exercisesData);
     }
   }, [exercisesData]);
 
@@ -20,7 +20,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [exercisesPerPage] = useState(6);
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = exercises?.slice(
+  const currentExercises = exercisesData.slice(
     indexOfFirstExercise,
     indexOfLastExercise
   );

@@ -44,6 +44,8 @@ export const {
 
 // RAPID API CODE SNIPPET FOR THE EXERCISEDB
 
+// htmlfivedev@gmail.com
+
 // const options = {
 //     method: 'GET',
 //     url: 'https://exercisedb.p.rapidapi.com/exercises/bodyPartList',

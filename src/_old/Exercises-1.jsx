@@ -1,38 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
-import { useGetAllProductsQuery } from '../services/dummyJsonApi';
 import ExerciseCard from './ExerciseCard';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
-  // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
-  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllProductsQuery();
-
-  useEffect(() => {
-    if (exercisesData) {
-      setExercises(exercisesData?.products);
-    }
-  }, [exercisesData]);
-
-  // PAGINATION
+  // console.log('exercises:', exercises);
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = exercises?.slice(
+  const currentExercises = exercises.slice(
     indexOfFirstExercise,
     indexOfLastExercise
   );
+
+  console.log('Current Exs:', currentExercises);
+
   const paginate = (e, value) => {
     setCurrentPage(value);
 
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
-
-  if (isFetchingAllWorkouts) return 'Loding...';
-
-  console.log('exercises:', exercises);
 
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>
@@ -52,11 +40,11 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
       <Stack sx={{ mt: { lg: '114px', xs: '70px' } }} alignItems='center'>
         {exercises.length > 9 && (
           <Pagination
-            color='standard'
+            color='primary'
             shape='rounded'
             defaultPage={1}
             count={Math.ceil(exercises.length / exercisesPerPage)}
-            page={currentPage}
+            page={'currentPage'}
             onChange={paginate}
             size='large'
           />

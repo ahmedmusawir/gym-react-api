@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import HorizontalScrollbar from './HorizontalScrollbar';
 import {
-  useGetAllProductsQuery,
-  useGetSingleProductQuery,
-  useGetProductCategoriesQuery,
-} from '../services/dummyJsonApi';
+  useGetAllWorkoutsQuery,
+  useGetGymCategoriesQuery,
+} from '../services/gymApi';
+import { exercisesData } from '../data/exercisesData';
+import { bodyPartsData } from '../data/bodyPartsData';
 
 const SearchExercises = ({
   exercises,
@@ -18,12 +19,12 @@ const SearchExercises = ({
 
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
 
-  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllProductsQuery();
+  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+  //   useGetAllWorkoutsQuery();
   // console.log('Raw data from API - Exercises:', exercisesData);
 
-  const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
-    useGetProductCategoriesQuery();
+  // const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
+  //   useGetGymCategoriesQuery();
   // console.log('Raw data from API - Body Parts:', bodyPartsData);
 
   // console.log('Exercise Local Data', exerciseData);
@@ -31,26 +32,26 @@ const SearchExercises = ({
 
   useEffect(() => {
     if (exercisesData) {
-      setExercises(exercisesData?.products);
+      setExercises(exercisesData);
     }
+    // THE FOLLOWING WON'T WORK CUZ CANNOT USE SPREAD OPERATOR HERE, THE DATA IS NOT YET AVAILABLE
     if (bodyPartsData) {
-      // setBodyParts(['all'].concat(bodyPartsData));
       setBodyParts(['all', ...bodyPartsData]);
+      // setBodyParts(['all'].concat(bodyPartsData));
     }
   }, [bodyPartsData, exercisesData]);
 
   const handleSearch = () => {
     if (search) {
-      // THIS MUST BE exercisesData CUZ exercises IS A STATE AND IT'S BEING UPDATED
-      const searchExercises = exercisesData?.products.filter(
+      const searchExercises = exercisesData?.filter(
         (exercise) =>
-          exercise.title.toLowerCase().includes(search.toLowerCase()) ||
-          exercise.category.toLowerCase().includes(search.toLowerCase()) ||
-          exercise.description.toLowerCase().includes(search.toLowerCase()) ||
-          exercise.brand.toLowerCase().includes(search.toLowerCase())
+          exercise.name.toLowerCase().includes(search) ||
+          exercise.target.toLowerCase().includes(search) ||
+          exercise.equipment.toLowerCase().includes(search) ||
+          exercise.bodyPart.toLowerCase().includes(search)
       );
 
-      setSearch('');
+      // setSearch('');
       setExercises(searchExercises);
     }
   };
@@ -58,16 +59,11 @@ const SearchExercises = ({
   console.log('Search result:', exercises);
   // console.log('Body Parts:', bodyParts);
 
+  // if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
   // if (isFetchingBodyParts) return 'Loading...';
-  if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
 
   return (
     <Stack alignItems={'center'} mt='37px' justifyContent={'center'} p='20px'>
-      {/* <Box>
-        {exercisesData?.products.map((item) => (
-          <li>{item.title}</li>
-        ))}
-      </Box> */}
       <Typography
         fontWeight={700}
         sx={{

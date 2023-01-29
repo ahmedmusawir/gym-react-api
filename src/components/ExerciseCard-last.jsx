@@ -4,7 +4,7 @@ import { Button, Stack, Typography } from '@mui/material';
 
 const ExerciseCard = ({ exercise }) => (
   <Link className='exercise-card' to={`/exercise/${exercise.id}`}>
-    <img src={exercise.thumbnail} alt={exercise.title} loading='lazy' />
+    <img src={exercise.gifUrl} alt={exercise.name} loading='lazy' />
     <Stack direction='row'>
       <Button
         sx={{
@@ -16,7 +16,7 @@ const ExerciseCard = ({ exercise }) => (
           textTransform: 'capitalize',
         }}
       >
-        {exercise?.category}
+        {exercise.bodyPart}
       </Button>
       <Button
         sx={{
@@ -28,7 +28,7 @@ const ExerciseCard = ({ exercise }) => (
           textTransform: 'capitalize',
         }}
       >
-        {exercise?.brand}
+        {exercise.target}
       </Button>
     </Stack>
     <Typography
@@ -40,7 +40,7 @@ const ExerciseCard = ({ exercise }) => (
       pb='10px'
       textTransform='capitalize'
     >
-      {exercise.title}
+      {exercise.name}
     </Typography>
   </Link>
 );

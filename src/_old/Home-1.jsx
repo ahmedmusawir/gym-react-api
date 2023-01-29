@@ -11,9 +11,7 @@ function Home() {
   return (
     <Box>
       <HeroBanner />
-      <h4>Stopped at 1hr 33min on the Video </h4>
       <SearchExercises
-        exercises={exercises}
         setExercises={setExercises}
         bodyPart={bodyPart}
         setBodyPart={setBodyPart}
