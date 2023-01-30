@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
-import { useGetAllProductsQuery } from '../services/dummyJsonApi';
+import {
+  useGetAllProductsQuery,
+  useGetProductByCategoryQuery,
+} from '../services/dummyJsonApi';
 import ExerciseCard from './ExerciseCard';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
@@ -9,13 +12,25 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
     useGetAllProductsQuery();
 
+  const { data: exercisesDataByCategory, isFetching: isFetchingByCategory } =
+    useGetProductByCategoryQuery(bodyPart);
+  // console.log('By Cats:', exercisesDataByCategory);
+
+  console.log('bodyPart in Exercises:', bodyPart);
+
   useEffect(() => {
     if (exercisesData) {
-      setExercises(exercisesData?.products);
+      if (bodyPart === 'all') {
+        setExercises(exercisesData?.products);
+      } else {
+        // console.log('Data by Cats:', exercisesDataByCategory?.products);
+        setExercises(exercisesDataByCategory?.products);
+      }
     }
-  }, [exercisesData]);
+  }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
 
   // PAGINATION
+  // console.log('Current Exercises in Exercises.jsx:', exercises);
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
   const indexOfLastExercise = currentPage * exercisesPerPage;
@@ -26,13 +41,12 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   );
   const paginate = (e, value) => {
     setCurrentPage(value);
-
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
 
-  if (isFetchingAllWorkouts) return 'Loding...';
+  if (isFetchingAllWorkouts || isFetchingByCategory) return 'Loding...';
 
-  console.log('exercises:', exercises);
+  // console.log('exercises:', exercises);
 
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>

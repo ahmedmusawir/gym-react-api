@@ -11,13 +11,19 @@ export const dummyJsonApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: () => makeApiCall(`/products`),
+      query: () => makeApiCall(`/products?limit=100`),
     }),
     getSingleProduct: builder.query({
       query: (id) => makeApiCall(`/products/${id}`),
     }),
     getProductCategories: builder.query({
       query: (id) => makeApiCall(`/products/categories`),
+    }),
+    getProductByCategory: builder.query({
+      query: (catName) => {
+        // console.log('catName in RTK api', catName);
+        return makeApiCall(`/products/category/${catName}`);
+      },
     }),
   }),
 });
@@ -26,6 +32,7 @@ export const {
   useGetAllProductsQuery,
   useGetSingleProductQuery,
   useGetProductCategoriesQuery,
+  useGetProductByCategoryQuery,
 } = dummyJsonApi;
 
 // RAPID API CODE SNIPPET FOR THE DUMMY JSON API

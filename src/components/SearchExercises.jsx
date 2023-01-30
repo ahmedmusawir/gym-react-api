@@ -37,7 +37,12 @@ const SearchExercises = ({
       // setBodyParts(['all'].concat(bodyPartsData));
       setBodyParts(['all', ...bodyPartsData]);
     }
-  }, [bodyPartsData, exercisesData]);
+  }, [
+    bodyPartsData,
+    exercisesData,
+    isFetchingAllWorkouts,
+    isFetchingBodyParts,
+  ]);
 
   const handleSearch = () => {
     if (search) {
@@ -48,14 +53,24 @@ const SearchExercises = ({
           exercise.category.toLowerCase().includes(search.toLowerCase()) ||
           exercise.description.toLowerCase().includes(search.toLowerCase()) ||
           exercise.brand.toLowerCase().includes(search.toLowerCase())
+
+        // {
+        //   console.log('data text:', exercise.title.toLowerCase());
+        //   console.log('search text:', search.toLowerCase());
+
+        //   return exercise.title.toLowerCase().includes(search.toLowerCase());
+        // }
       );
 
       setSearch('');
       setExercises(searchExercises);
+      // console.log('Filtered Search result:', searchExercises);
+      window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
     }
   };
 
-  console.log('Search result:', exercises);
+  console.log('Search Results:', exercises);
+  // console.log('Search target Data:', exercisesData);
   // console.log('Body Parts:', bodyParts);
 
   // if (isFetchingBodyParts) return 'Loading...';
