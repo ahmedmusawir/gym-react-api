@@ -5,26 +5,27 @@ import {
   useGetAllProductsQuery,
   useGetProductByCategoryQuery,
 } from '../services/dummyJsonApi';
+import {
+  useGetAllWorkoutsQuery,
+  useGetWorkoutByBodyPartQuery,
+} from '../services/gymApi';
+
 import ExerciseCard from './ExerciseCard';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllProductsQuery();
+    useGetAllWorkoutsQuery();
 
   const { data: exercisesDataByCategory, isFetching: isFetchingByCategory } =
-    useGetProductByCategoryQuery(bodyPart);
-  // console.log('By Cats:', exercisesDataByCategory);
-
-  console.log('bodyPart in Exercises:', bodyPart);
+    useGetWorkoutByBodyPartQuery(bodyPart);
 
   useEffect(() => {
-    if (exercisesData) {
+    if (exercisesData && exercisesDataByCategory) {
       if (bodyPart === 'all') {
-        setExercises(exercisesData?.products);
+        setExercises(exercisesData);
       } else {
-        // console.log('Data by Cats:', exercisesDataByCategory?.products);
-        setExercises(exercisesDataByCategory?.products);
+        setExercises(exercisesDataByCategory);
       }
     }
   }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
@@ -46,7 +47,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   if (isFetchingAllWorkouts || isFetchingByCategory) return 'Loding...';
 
-  // console.log('exercises:', exercises);
+  // console.log('Exercises:', exercises);
 
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>

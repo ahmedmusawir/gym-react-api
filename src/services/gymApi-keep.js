@@ -21,8 +21,15 @@ export const gymApi = createApi({
     }),
     getWorkoutByBodyPart: builder.query({
       query: (bodyPart) => {
-        // console.log('BodyPart in GymApi:', bodyPart);
-        return makeApiCall(`/exercises/bodyPart/${bodyPart}`);
+        console.log('BodyPart in GymApi:', bodyPart);
+        if (bodyPart !== 'all') {
+          return makeApiCall(`/exercises/bodyPart/${bodyPart}`);
+        } else {
+          return Promise.resolve({});
+          // return Promise.resolve({ data: [] }); // or Promise.resolve({});
+          // THIS DID NOT WORK! ALWAYS GET THE SAME 401 ERROR FROM THE API
+          // DON'T KNOW HOW TO DO THIS CONDITIONALLY
+        }
       },
     }),
     getSingleWorkout: builder.query({

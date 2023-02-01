@@ -6,6 +6,9 @@ import {
   useGetSingleProductQuery,
   useGetProductCategoriesQuery,
 } from '../services/dummyJsonApi';
+import { bodyPartsData } from '../data/bodyPartsData';
+import { exercisesData } from '../data/exercisesData';
+import Loader from './Loader';
 
 const SearchExercises = ({
   exercises,
@@ -18,12 +21,12 @@ const SearchExercises = ({
 
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
 
-  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllProductsQuery();
+  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+  //   useGetAllProductsQuery();
   // console.log('Raw data from API - Exercises:', exercisesData);
 
-  const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
-    useGetProductCategoriesQuery();
+  // const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
+  //   useGetProductCategoriesQuery();
   // console.log('Raw data from API - Body Parts:', bodyPartsData);
 
   // console.log('Exercise Local Data', exerciseData);
@@ -31,7 +34,7 @@ const SearchExercises = ({
 
   useEffect(() => {
     if (exercisesData) {
-      setExercises(exercisesData?.products);
+      setExercises(exercisesData);
     }
     if (bodyPartsData) {
       // setBodyParts(['all'].concat(bodyPartsData));
@@ -40,19 +43,19 @@ const SearchExercises = ({
   }, [
     bodyPartsData,
     exercisesData,
-    isFetchingAllWorkouts,
-    isFetchingBodyParts,
+    // isFetchingAllWorkouts,
+    // isFetchingBodyParts,
   ]);
 
   const handleSearch = () => {
     if (search) {
       // THIS MUST BE exercisesData CUZ exercises IS A STATE AND IT'S BEING UPDATED
-      const searchExercises = exercisesData?.products.filter(
+      const searchExercises = exercisesData.filter(
         (exercise) =>
-          exercise.title.toLowerCase().includes(search.toLowerCase()) ||
-          exercise.category.toLowerCase().includes(search.toLowerCase()) ||
+          exercise.name.toLowerCase().includes(search.toLowerCase()) ||
+          exercise.bodyPart.toLowerCase().includes(search.toLowerCase()) ||
           exercise.description.toLowerCase().includes(search.toLowerCase()) ||
-          exercise.brand.toLowerCase().includes(search.toLowerCase())
+          exercise.target.toLowerCase().includes(search.toLowerCase())
       );
 
       setSearch('');
@@ -62,12 +65,13 @@ const SearchExercises = ({
     }
   };
 
-  console.log('Search Results:', exercises);
+  // console.log('Search Results:', exercises);
   // console.log('Search target Data:', exercisesData);
   // console.log('Body Parts:', bodyParts);
 
   // if (isFetchingBodyParts) return 'Loading...';
-  if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
+  // if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
+  if (!exercisesData) return <Loader />;
 
   return (
     <Stack alignItems={'center'} mt='37px' justifyContent={'center'} p='20px'>
