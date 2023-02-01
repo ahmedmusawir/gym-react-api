@@ -17,7 +17,7 @@ export const dummyJsonApi = createApi({
       query: (id) => makeApiCall(`/products/${id}`),
     }),
     getProductCategories: builder.query({
-      query: (id) => makeApiCall(`/products/categories`),
+      query: () => makeApiCall(`/products/categories`),
     }),
     getProductByCategory: builder.query({
       query: (catName) => {

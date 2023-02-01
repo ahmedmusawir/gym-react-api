@@ -53,13 +53,6 @@ const SearchExercises = ({
           exercise.category.toLowerCase().includes(search.toLowerCase()) ||
           exercise.description.toLowerCase().includes(search.toLowerCase()) ||
           exercise.brand.toLowerCase().includes(search.toLowerCase())
-
-        // {
-        //   console.log('data text:', exercise.title.toLowerCase());
-        //   console.log('search text:', search.toLowerCase());
-
-        //   return exercise.title.toLowerCase().includes(search.toLowerCase());
-        // }
       );
 
       setSearch('');
@@ -78,11 +71,6 @@ const SearchExercises = ({
 
   return (
     <Stack alignItems={'center'} mt='37px' justifyContent={'center'} p='20px'>
-      {/* <Box>
-        {exercisesData?.products.map((item) => (
-          <li>{item.title}</li>
-        ))}
-      </Box> */}
       <Typography
         fontWeight={700}
         sx={{
@@ -129,9 +117,9 @@ const SearchExercises = ({
       <Box sx={{ position: 'relative', width: '100%', p: '20px' }}>
         <HorizontalScrollbar
           data={bodyParts}
-          // data={['all', ...bodyPartsData]}
           bodyPart={bodyPart}
           setBodyPart={setBodyPart}
+          isBodyPart
         />
       </Box>
     </Stack>

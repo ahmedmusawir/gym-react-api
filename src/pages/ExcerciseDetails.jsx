@@ -5,7 +5,6 @@ import Details from '../components/Details';
 import ExerciseVideos from '../components/ExerciseVideos';
 import SimilarExercises from '../components/SimilarExercises';
 import { useGetSingleProductQuery } from '../services/dummyJsonApi';
-import { useGetYoutubeQuery } from '../services/youtubeApi';
 
 function ExerciseDetails() {
   const [exerciseDetail, setExerciseDetail] = useState({});
@@ -14,9 +13,6 @@ function ExerciseDetails() {
   const { data: singleExercise, isFetching: fetchingSingle } =
     useGetSingleProductQuery(id);
   console.log('Single Product Raw:', singleExercise);
-  // const { data: youtubeData, isFetching: fetchingYoutube } =
-  //   useGetYoutubeQuery('htmlfivedev');
-  // console.log('Youtube Raw:', youtubeData);
 
   useEffect(() => {
     if (singleExercise) {
@@ -29,8 +25,8 @@ function ExerciseDetails() {
   return (
     <Box>
       <Details exerciseDetail={exerciseDetail} />
-      <ExerciseVideos />
-      <SimilarExercises />
+      <ExerciseVideos exerciseName={exerciseDetail.category} />
+      <SimilarExercises targetName={exerciseDetail.category} />
     </Box>
   );
 }
