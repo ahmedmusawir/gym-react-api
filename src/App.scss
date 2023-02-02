@@ -13,6 +13,27 @@ body {
   width: 0px;
 }
 
+.logo {
+  @media (max-width: 599px) {
+    margin-top: 3rem !important;
+    // border: 5px dotted red;
+  }
+}
+
+.search-exercises {
+  background-color: slategray !important;
+  background-image: url('assets/images/middle-girl-pic.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 5rem !important;
+
+  .search-box {
+    padding: 2rem;
+    background-color: #fff;
+    opacity: 0.7;
+  }
+}
+
 .right-arrow,
 .left-arrow {
   cursor: pointer;
@@ -57,8 +78,35 @@ body {
   right: 40px;
   top: 0px;
   width: 700px;
-  height: 900px;
+  // height: 900px;
   margin-top: -330px;
+
+  @media (max-width: 1390px) {
+    width: 500px;
+  }
+  @media (max-width: 1199px) {
+    width: 400px;
+    margin-top: -160px;
+  }
+  @media (max-width: 1090px) {
+    width: 300px;
+    margin-top: -160px;
+  }
+  @media (max-width: 1000px) {
+    width: 300px;
+    margin-top: -50px;
+  }
+  @media (max-width: 838px) {
+    width: 200px;
+    margin-top: 0px;
+  }
+  @media (max-width: 726px) {
+    width: 150px;
+    margin-top: 0px;
+  }
+  @media (max-width: 425px) {
+    display: none;
+  }
 }
 
 .exercise-card {
@@ -90,9 +138,12 @@ body {
   transform: scale(1.1, 1.1);
 }
 
-.search-btn:hover {
-  color: #ff2625 !important;
-  border: 1px solid #ff2625 !important;
+.search-btn {
+  border: 23px solid #ff2625 !important;
+  &:hover {
+    color: #ff2625 !important;
+    border: 2px solid #ff2625 !important;
+  }
 }
 
 .exercise-video {
@@ -117,10 +168,6 @@ body {
   .left-arrow,
   .right-arrow {
     position: static !important;
-  }
-
-  .hero-banner-img {
-    display: none;
   }
 
   .exercise-card {

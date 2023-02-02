@@ -6,12 +6,15 @@ import HorizontalScrollbar from './HorizontalScrollbar';
 import Loader from './Loader';
 
 function SimilarExercises({ targetName }) {
-  const { data, isFetching } = useGetProductByCategoryQuery(targetName);
-  // console.log('Target Exercises:', data?.products);
+  console.log('Target:', targetName);
+  // const { data, isFetching } = useGetProductByCategoryQuery(targetName);
+  const { data: targetMuscleExercises, isFetching } =
+    useGetTargetWorkoutQuery(targetName);
+  console.log('Target Exercises:', targetMuscleExercises);
 
   if (isFetching) return <Loader />;
-  const targetMuscleExercises = data?.products;
-  console.log('Target Products', targetMuscleExercises.length);
+  // const targetMuscleExercises = data?.products;
+  // console.log('Target Products', targetMuscleExercises.length);
 
   return (
     <Box

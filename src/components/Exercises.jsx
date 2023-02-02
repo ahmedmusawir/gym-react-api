@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
-import {
-  useGetAllProductsQuery,
-  useGetProductByCategoryQuery,
-} from '../services/dummyJsonApi';
+
 import {
   useGetAllWorkoutsQuery,
   useGetWorkoutByBodyPartQuery,
 } from '../services/gymApi';
+import { exercisesData } from '../data/exercisesData';
 
 import ExerciseCard from './ExerciseCard';
+import Loader from './Loader';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [exercisesPerPage] = useState(6);
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
-  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllWorkoutsQuery();
+  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+  //   useGetAllWorkoutsQuery();
 
   const { data: exercisesDataByCategory, isFetching: isFetchingByCategory } =
     useGetWorkoutByBodyPartQuery(bodyPart);
@@ -26,14 +27,14 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         setExercises(exercisesData);
       } else {
         setExercises(exercisesDataByCategory);
+        setCurrentPage(1);
       }
     }
-  }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
+  }, [exercisesData, bodyPart, isFetchingByCategory]);
+  // }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
 
   // PAGINATION
   // console.log('Current Exercises in Exercises.jsx:', exercises);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [exercisesPerPage] = useState(6);
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = exercises?.slice(
@@ -45,7 +46,8 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
 
-  if (isFetchingAllWorkouts || isFetchingByCategory) return 'Loding...';
+  if (isFetchingByCategory) return <Loader />;
+  // if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
 
   // console.log('Exercises:', exercises);
 

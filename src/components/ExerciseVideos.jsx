@@ -30,7 +30,7 @@ function ExerciseVideos({ exerciseName }) {
         alignItems={'center'}
         sx={{
           flexDirection: { sm: 'row', md: 'row', lg: 'row' },
-          gap: { lg: '70px', md: '170px', sm: '70px', xs: '200px' },
+          gap: { lg: '70px', md: '70px', sm: '70px', xs: '200px' },
         }}
       >
         {videoData?.slice(0, 3).map((item, indx) => (

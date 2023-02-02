@@ -5,21 +5,20 @@ import TargetImage from '../assets/icons/target.png';
 import EquipmentImage from '../assets/icons/equipment.png';
 
 function Details({ exerciseDetail }) {
-  const { category, description, price, thumbnail, rating, title } =
-    exerciseDetail;
+  const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
   const extraDetail = [
     {
       icon: BodyPartImage,
-      name: category,
+      name: bodyPart,
     },
     {
       icon: TargetImage,
-      name: price,
+      name: target,
     },
     {
       icon: EquipmentImage,
-      name: rating,
+      name: equipment,
     },
   ];
 
@@ -35,10 +34,10 @@ function Details({ exerciseDetail }) {
       // style={{ height: '100%', border: '.5rem dotted red' }}
     >
       {/* <pre>{JSON.stringify(exerciseDetail)}</pre> */}
-      <Box p='2rem'>
+      <Box p='1rem'>
         <img
-          src={thumbnail}
-          alt={title}
+          src={gifUrl}
+          alt={name}
           loading='lazy'
           className='detail-image'
           style={
@@ -50,18 +49,29 @@ function Details({ exerciseDetail }) {
       </Box>
       <Stack
         sx={{
-          gap: { lg: '35px', xs: '20px' },
+          gap: { sm: '0px', md: '10px', lg: '35px', xs: '20px' },
           alignContent: 'center',
           justifyContent: { lg: 'center', md: 'center' },
           height: { lg: '80vh', md: '50vh' },
         }}
       >
         <Typography
-          sx={{ typography: { xs: 'h3', sm: 'h3', md: 'h4', lg: 'h3' } }}
+          sx={{ typography: { xs: 'h4', sm: 'h4', md: 'h4', lg: 'h3' } }}
         >
-          {title}
+          {name}
         </Typography>
-        <Typography variant='h6'>{description}</Typography>
+        <Typography
+          sx={{ fontSize: { lg: '24px', xs: '18px' } }}
+          color='#4F4C4C'
+        >
+          Exercises keep you strong.{' '}
+          <span style={{ textTransform: 'capitalize', color: 'red' }}>
+            {name}
+          </span>{' '}
+          bup is one of the best <br /> exercises to target your{' '}
+          <span style={{ color: 'orangered' }}>{target}</span>. It will help you
+          improve your <br /> mood and gain energy.
+        </Typography>
         {extraDetail.map((item, i) => (
           <Stack key={i} direction='row' gap={'24px'} alignItems='center'>
             <Button

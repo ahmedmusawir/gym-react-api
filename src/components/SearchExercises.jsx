@@ -54,7 +54,7 @@ const SearchExercises = ({
         (exercise) =>
           exercise.name.toLowerCase().includes(search.toLowerCase()) ||
           exercise.bodyPart.toLowerCase().includes(search.toLowerCase()) ||
-          exercise.description.toLowerCase().includes(search.toLowerCase()) ||
+          exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
           exercise.target.toLowerCase().includes(search.toLowerCase())
       );
 
@@ -65,35 +65,44 @@ const SearchExercises = ({
     }
   };
 
-  // console.log('Search Results:', exercises);
-  // console.log('Search target Data:', exercisesData);
-  // console.log('Body Parts:', bodyParts);
-
   // if (isFetchingBodyParts) return 'Loading...';
   // if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
   if (!exercisesData) return <Loader />;
 
   return (
-    <Stack alignItems={'center'} mt='37px' justifyContent={'center'} p='20px'>
+    <Stack
+      alignItems={'center'}
+      mt='37px'
+      justifyContent={'center'}
+      p='20px'
+      className='search-exercises'
+    >
       <Typography
         fontWeight={700}
         sx={{
           fontSize: { lg: '44px', xs: '30px' },
+          color: '#e3e3e3',
+          paddingTop: '4rem',
         }}
         mb='50px'
         textAlign={'center'}
       >
         Awesome Exercises You Should Know
       </Typography>
-      <Box position={'relative'} mb='72px' display='flex'>
+      <Box
+        position={'relative'}
+        mb='72px'
+        display='flex'
+        className='search-box'
+      >
         <TextField
           sx={{
             input: {
               fontWeight: '700',
-              border: 'none',
+              border: '1px solid red',
               borderRadius: '4px',
             },
-            width: { lg: '800px', xs: '350px' },
+            width: { lg: '800px', xs: '250px' },
             backgroundColor: 'fff',
           }}
           height='76px'

@@ -27,6 +27,7 @@ function Navbar() {
           src={Logo}
           alt='logo'
           style={{ width: '200px', margin: '0 30px' }}
+          className='logo'
         />
       </Link>
       <Stack
@@ -34,6 +35,7 @@ function Navbar() {
         gap={'30px'}
         fontSize={'20px'}
         alignItems={'flex-end'}
+        sx={{ display: { xs: 'none', sm: 'block' } }}
       >
         <Link
           to='/'
@@ -41,6 +43,7 @@ function Navbar() {
             textDecoration: 'none',
             color: '#3A1212',
             borderBottom: '3px solid #FF2625',
+            marginRight: '3rem',
           }}
         >
           Home
@@ -49,12 +52,12 @@ function Navbar() {
           to='/'
           style={{ textDecoration: 'none', color: '#3A1212' }}
         ></Link>
-        <Link
-          to='#exercises'
+        <a
+          href='/#exercises'
           style={{ textDecoration: 'none', color: '#3A1212' }}
         >
           Exercises
-        </Link>
+        </a>
       </Stack>
     </Stack>
   );
