@@ -62,7 +62,7 @@ const SearchExercises = ({
     }
   };
 
-  console.log('Search Results:', exercises);
+  // console.log('Search Results:', exercises);
   // console.log('Search target Data:', exercisesData);
   // console.log('Body Parts:', bodyParts);
 

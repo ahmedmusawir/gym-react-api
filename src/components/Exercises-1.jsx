@@ -9,8 +9,6 @@ import ExerciseCard from './ExerciseCard';
 import Loader from './Loader';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [exercisesPerPage] = useState(6);
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
     useGetAllProductsQuery();
@@ -28,7 +26,6 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
       } else {
         // console.log('Data by Cats:', exercisesDataByCategory?.products);
         setExercises(exercisesDataByCategory?.products);
-        setCurrentPage(1);
       }
     }
   }, [
@@ -41,7 +38,8 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   // PAGINATION
   // console.log('Current Exercises in Exercises.jsx:', exercises);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [exercisesPerPage] = useState(6);
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = exercises?.slice(
@@ -58,8 +56,6 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   console.log('Exercises:', exercises);
   console.log('Current Paginated Exercises:', currentExercises);
-  console.log('indexOfFirstExercise', indexOfFirstExercise);
-  console.log('indexOfLastExercise', indexOfLastExercise);
   if (!currentExercises.length) return <Loader />;
 
   return (
@@ -73,10 +69,11 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         flexWrap='wrap'
         justifyContent={'center'}
       >
-        {currentExercises.map((exercise, i) => {
-          // console.log('Single Exercise:', exercise);
-          return <ExerciseCard key={i} exercise={exercise} />;
-        })}
+        {currentExercises.length &&
+          currentExercises.map((exercise, i) => {
+            // console.log('Single Exercise:', exercise);
+            return <ExerciseCard key={i} exercise={exercise} />;
+          })}
       </Stack>
       <Stack sx={{ mt: { lg: '114px', xs: '70px' } }} alignItems='center'>
         {exercises.length > 9 && (
