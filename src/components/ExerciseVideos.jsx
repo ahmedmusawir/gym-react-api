@@ -17,20 +17,24 @@ function ExerciseVideos({ exerciseName }) {
 
   return (
     <Box sx={{ mt: { lg: '200px', xs: '50px' } }} p='20px'>
-      <Typography variant='h4' mb={'33px'}>
+      <Typography
+        variant='h4'
+        mb={'50px'}
+        sx={{ color: 'white', textAlign: 'center' }}
+      >
         Watch{' '}
-        <span style={{ color: '#ff2625', textTransform: 'capitalize' }}>
+        <span style={{ color: 'yellow', textTransform: 'capitalize' }}>
           {exerciseName}
         </span>{' '}
         Exercise Videos
       </Typography>
       <Stack
-        justifyContent={'flex-start'}
+        justifyContent={'center'}
         flexWrap='wrap'
         alignItems={'center'}
         sx={{
           flexDirection: { sm: 'row', md: 'row', lg: 'row' },
-          gap: { lg: '70px', md: '70px', sm: '70px', xs: '200px' },
+          gap: { lg: '200px', md: '120px', sm: '120px', xs: '200px' },
         }}
       >
         {videoData?.slice(0, 3).map((item, indx) => (
@@ -43,10 +47,10 @@ function ExerciseVideos({ exerciseName }) {
           >
             <img src={item.video.thumbnails[0].url} alt={item.video.title} />
             <Box>
-              <Typography variant='h6' color='black'>
+              <Typography variant='h6' color='#e3e3e3'>
                 {item.video.title}
               </Typography>
-              <Typography variant='p' color='gray'>
+              <Typography variant='p' color='yellow'>
                 {item.video.channelName}
               </Typography>
             </Box>

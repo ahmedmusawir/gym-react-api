@@ -53,7 +53,11 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>
-      <Typography variant='h5' mb='46px' sx={{ textAlign: 'center' }}>
+      <Typography
+        variant='h4'
+        mb='46px'
+        sx={{ textAlign: 'center', color: 'white' }}
+      >
         Showing Results
       </Typography>
       <Stack
@@ -62,6 +66,15 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         flexWrap='wrap'
         justifyContent={'center'}
       >
+        {!currentExercises.length && (
+          <Typography
+            variant='h5'
+            mb='46px'
+            sx={{ textAlign: 'center', color: 'red' }}
+          >
+            No results found ... keep searching!
+          </Typography>
+        )}
         {currentExercises.map((exercise, i) => (
           <ExerciseCard key={i} exercise={exercise} />
         ))}

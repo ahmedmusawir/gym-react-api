@@ -10,7 +10,9 @@ function Home() {
 
   return (
     <Box>
-      <HeroBanner />
+      <Box width={'400px'} sx={{ width: { xl: '1488px' } }} m='auto'>
+        <HeroBanner />
+      </Box>
       <SearchExercises
         exercises={exercises}
         setExercises={setExercises}

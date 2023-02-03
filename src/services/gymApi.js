@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const gymApiHeaders = {
-  'X-RapidAPI-Key': '7fe701ab34mshb5fbb7b29ae9accp1485a6jsna5fab91f7aed',
+  'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
   'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
 };
 

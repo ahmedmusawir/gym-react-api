@@ -22,12 +22,16 @@ function SimilarExercises({ targetName }) {
       p='20px'
     >
       {/* {!targetMuscleExercises.length && <Loader />} */}
-      <Typography variant='h4' mb={'33px'}>
-        Watch{' '}
-        <span style={{ color: '#ff2625', textTransform: 'capitalize' }}>
+      <Typography
+        variant='h4'
+        mb={'50px'}
+        sx={{ color: 'white', textAlign: 'center' }}
+      >
+        Similar{' '}
+        <span style={{ color: 'yellow', textTransform: 'capitalize' }}>
           {targetName}
         </span>{' '}
-        Exercise Videos
+        Targeted Exercises
       </Typography>
       <Stack direction={'row'} sx={{ p: '2', position: 'relative' }}>
         <HorizontalScrollbar data={targetMuscleExercises} />

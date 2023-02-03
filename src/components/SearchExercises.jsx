@@ -70,72 +70,77 @@ const SearchExercises = ({
   if (!exercisesData) return <Loader />;
 
   return (
-    <Stack
-      alignItems={'center'}
-      mt='37px'
-      justifyContent={'center'}
-      p='20px'
-      className='search-exercises'
-    >
-      <Typography
-        fontWeight={700}
-        sx={{
-          fontSize: { lg: '44px', xs: '30px' },
-          color: '#e3e3e3',
-          paddingTop: '4rem',
-        }}
-        mb='50px'
-        textAlign={'center'}
-      >
-        Awesome Exercises You Should Know
-      </Typography>
-      <Box
-        position={'relative'}
-        mb='72px'
-        display='flex'
-        className='search-box'
-      >
-        <TextField
-          sx={{
-            input: {
-              fontWeight: '700',
-              border: '1px solid red',
-              borderRadius: '4px',
-            },
-            width: { lg: '800px', xs: '250px' },
-            backgroundColor: 'fff',
-          }}
-          height='76px'
-          value={search}
-          placeholder='Search Exercises'
-          type={'text'}
-          onChange={(e) => setSearch(e.target.value.toLowerCase())}
-        />
-        <Button
-          className='search-btn'
-          sx={{
-            backgroundColor: '#ff2625',
-            color: '#fff',
-            textTransform: 'none',
-            width: { lg: '175px', xs: '80px' },
-            fontSize: { lg: '20px', xs: '14px' },
-            height: '56px',
-            // position: 'absolute',
-          }}
-          onClick={handleSearch}
+    <div className='search-container'>
+      <Box width={'400px'} sx={{ width: { xl: '1488px' } }} m='auto'>
+        <Stack
+          alignItems={'center'}
+          mt='37px'
+          justifyContent={'center'}
+          p='20px'
+          className='search-exercises'
+          maxWidth={'xl'}
         >
-          Search
-        </Button>
+          <Typography
+            fontWeight={700}
+            sx={{
+              fontSize: { lg: '44px', xs: '30px' },
+              color: '#e3e3e3',
+              paddingTop: '4rem',
+            }}
+            mb='50px'
+            textAlign={'center'}
+          >
+            Awesome Exercises You Should Know
+          </Typography>
+          <Box
+            position={'relative'}
+            mb='72px'
+            display='flex'
+            className='search-box'
+          >
+            <TextField
+              sx={{
+                input: {
+                  fontWeight: '700',
+                  border: '0px solid black',
+                  borderRadius: '4px',
+                },
+                width: { lg: '800px', xs: '250px' },
+                backgroundColor: 'fff',
+              }}
+              height='76px'
+              value={search}
+              placeholder='Search Exercises'
+              type={'text'}
+              onChange={(e) => setSearch(e.target.value.toLowerCase())}
+            />
+            <Button
+              className='search-btn'
+              sx={{
+                backgroundColor: '#ff2625',
+                color: '#fff',
+                textTransform: 'none',
+                width: { lg: '175px', xs: '80px' },
+                fontSize: { lg: '20px', xs: '14px' },
+                height: '56px',
+                // position: 'absolute',
+              }}
+              onClick={handleSearch}
+            >
+              Search
+            </Button>
+          </Box>
+          <Box sx={{ position: 'relative', width: '100%', p: '20px' }}>
+            <HorizontalScrollbar
+              data={bodyParts}
+              bodyPart={bodyPart}
+              setBodyPart={setBodyPart}
+              isBodyPart
+            />
+          </Box>
+        </Stack>
       </Box>
-      <Box sx={{ position: 'relative', width: '100%', p: '20px' }}>
-        <HorizontalScrollbar
-          data={bodyParts}
-          bodyPart={bodyPart}
-          setBodyPart={setBodyPart}
-          isBodyPart
-        />
-      </Box>
-    </Stack>
+    </div>
   );
 };
 

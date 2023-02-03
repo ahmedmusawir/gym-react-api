@@ -14,13 +14,15 @@ function Navbar() {
           sm: '122px',
           xs: '20px',
         },
-        mt: {
-          sm: '32px',
-          sx: '20px',
-        },
+        // mt: {
+        // sm: '32px',
+        // sx: '20px',
+        // },
         justifyContent: 'none',
+        backgroundColor: '#e3e3e3',
+        height: '100px',
+        p: '2rem',
       }}
-      px='2rem'
     >
       <Link to='/'>
         <img

@@ -11,7 +11,7 @@ const ExerciseCard = ({ exercise }) => (
           ml: '21px',
           color: '#fff',
           background: 'orangered',
-          fontSize: '16px',
+          fontSize: { lg: '18px', md: '16px', sm: '15px', xs: '14px' },
           borderRadius: '20px',
           textTransform: 'capitalize',
         }}
@@ -23,7 +23,7 @@ const ExerciseCard = ({ exercise }) => (
           ml: '21px',
           color: '#fff',
           background: 'darkorange',
-          fontSize: '16px',
+          fontSize: { lg: '18px', md: '16px', sm: '15px', xs: '14px' },
           borderRadius: '20px',
           textTransform: 'capitalize',
         }}
@@ -35,7 +35,7 @@ const ExerciseCard = ({ exercise }) => (
       ml='21px'
       color='#000'
       fontWeight='bold'
-      sx={{ fontSize: { lg: '18px', xs: '16px' } }}
+      sx={{ fontSize: { lg: '18px', md: '16px', sm: '15px', xs: '14px' } }}
       mt='11px'
       pb='10px'
       textTransform='capitalize'

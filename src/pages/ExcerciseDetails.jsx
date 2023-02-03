@@ -17,7 +17,7 @@ function ExerciseDetails() {
   if (fetchingSingle) return <Loader />;
 
   return (
-    <Box>
+    <Box width={'400px'} sx={{ width: { xl: '1488px' } }} m='auto'>
       <Details exerciseDetail={singleExercise} />
       <ExerciseVideos exerciseName={singleExercise.name} />
       <SimilarExercises targetName={singleExercise.target} />

@@ -56,20 +56,22 @@ function Details({ exerciseDetail }) {
         }}
       >
         <Typography
-          sx={{ typography: { xs: 'h4', sm: 'h4', md: 'h4', lg: 'h3' } }}
+          sx={{
+            typography: { xs: 'h4', sm: 'h4', md: 'h4', lg: 'h3' },
+            color: '#e3e3e3',
+          }}
         >
           {name}
         </Typography>
         <Typography
-          sx={{ fontSize: { lg: '24px', xs: '18px' } }}
-          color='#4F4C4C'
+          sx={{ fontSize: { lg: '24px', xs: '18px' }, color: '#e3e3e3' }}
         >
           Exercises keep you strong.{' '}
-          <span style={{ textTransform: 'capitalize', color: 'red' }}>
+          <span style={{ textTransform: 'capitalize', color: 'yellow' }}>
             {name}
           </span>{' '}
-          bup is one of the best <br /> exercises to target your{' '}
-          <span style={{ color: 'orangered' }}>{target}</span>. It will help you
+          bup is one of the best exercises to target your{' '}
+          <span style={{ color: 'yellow' }}>{target}</span>. It will help you
           improve your <br /> mood and gain energy.
         </Typography>
         {extraDetail.map((item, i) => (
@@ -88,7 +90,11 @@ function Details({ exerciseDetail }) {
                 style={{ width: '50px', height: '50px' }}
               />
             </Button>
-            <Typography textTransform={'capitalize'} variant='h5'>
+            <Typography
+              textTransform={'capitalize'}
+              variant='h5'
+              sx={{ color: 'white' }}
+            >
               {item.name}
             </Typography>
           </Stack>

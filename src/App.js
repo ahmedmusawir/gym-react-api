@@ -9,14 +9,16 @@ import ExcerciseDetails from './pages/ExcerciseDetails';
 
 function App() {
   return (
-    <Box width={'400px'} sx={{ width: { xl: '1488px' } }} m='auto'>
+    <>
       <Navbar />
+      {/* <Box width={'400px'} sx={{ width: { xl: '1488px' } }} m='auto'> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/exercise/:id' element={<ExcerciseDetails />} />
       </Routes>
       <Footer />
-    </Box>
+      {/* </Box> */}
+    </>
   );
 }
 
