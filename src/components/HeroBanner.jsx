@@ -13,12 +13,14 @@ const HeroBanner = () => {
       p='20px'
     >
       {/* <Typography color='#FF2625' fontWeight={'600'} fontSize='26px' pb={5}> */}
-      <Typography color='orangered' fontWeight={'600'} fontSize='26px' pb={5}>
+      <Typography color='#e7e7e7' fontWeight={'600'} fontSize='26px' pb={5}>
         Fitness Club
       </Typography>
+      <div className='fitness-club-top-banner'></div>
       <Typography
         fontWeight={700}
         sx={{ fontSize: { lg: '2.5rem', xs: '2rem' }, color: 'white' }}
+        mt='4rem'
       >
         Sweat, Smile <br /> and Repeat
       </Typography>
