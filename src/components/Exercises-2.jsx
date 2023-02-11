@@ -6,24 +6,17 @@ import {
   useGetAllWorkoutsQuery,
   useGetWorkoutByBodyPartQuery,
 } from '../services/gymApi';
-// import { exercisesData } from '../data/exercisesData';
+import { exercisesData } from '../data/exercisesData';
 
 import ExerciseCard from './ExerciseCard';
 import Loader from './Loader';
 
-const Exercises = ({
-  exercises,
-  setExercises,
-  bodyPart,
-  currentPage,
-  setCurrentPage,
-}) => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  console.log('Current Page:', currentPage);
+const Exercises = ({ exercises, setExercises, bodyPart }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
-  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllWorkoutsQuery();
+  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+  //   useGetAllWorkoutsQuery();
 
   const { data: exercisesDataByCategory, isFetching: isFetchingByCategory } =
     useGetWorkoutByBodyPartQuery(bodyPart);
@@ -33,14 +26,14 @@ const Exercises = ({
     if (exercisesData && exercisesDataByCategory) {
       if (bodyPart === 'all') {
         setExercises(exercisesData);
-        // setCurrentPage(1);
+        setCurrentPage(1);
       } else {
         setExercises(exercisesDataByCategory);
         setCurrentPage(1);
       }
     }
-    // }, [exercisesData, bodyPart, isFetchingByCategory]);
-  }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
+  }, [exercises, exercisesData, bodyPart, isFetchingByCategory]);
+  // }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
 
   // PAGINATION
   const indexOfLastExercise = currentPage * exercisesPerPage;
@@ -57,9 +50,9 @@ const Exercises = ({
   };
 
   // if (isFetchingByCategory) return <Loader />;
-  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
+  // if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
 
-  console.log('Exercises:', exercises);
+  // console.log('Exercises:', exercises);
   console.log('Current Exercises:', currentExercises);
 
   return (

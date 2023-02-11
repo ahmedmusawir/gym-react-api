@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import HorizontalScrollbar from './HorizontalScrollbar';
 import {
-  useGetAllWorkoutsQuery,
-  useGetGymCategoriesQuery,
-} from '../services/gymApi';
-// import { bodyPartsData } from '../data/bodyPartsData';
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+  useGetProductCategoriesQuery,
+} from '../services/dummyJsonApi';
+import { bodyPartsData } from '../data/bodyPartsData';
 // import { exercisesData } from '../data/exercisesData';
 import Loader from './Loader';
 
@@ -14,43 +15,43 @@ const SearchExercises = ({
   setExercises,
   bodyPart,
   setBodyPart,
-  setCurrentPage,
 }) => {
   const [search, setSearch] = useState('');
   const [bodyParts, setBodyParts] = useState([]);
 
   // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
 
-  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-    useGetAllWorkoutsQuery();
+  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+  //   useGetAllProductsQuery();
   // console.log('Raw data from API - Exercises:', exercisesData);
 
-  const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
-    useGetGymCategoriesQuery();
+  // const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
+  //   useGetProductCategoriesQuery();
   // console.log('Raw data from API - Body Parts:', bodyPartsData);
 
   // console.log('Exercise Local Data', exerciseData);
   // console.log('Exercise Categories Local Data', bodyPartsData);
 
   useEffect(() => {
-    if (exercisesData) {
-      setExercises(exercisesData);
-    }
+    // if (exercisesData) {
+    //   setExercises(exercisesData);
+    // }
     if (bodyPartsData) {
       // setBodyParts(['all'].concat(bodyPartsData));
       setBodyParts(['all', ...bodyPartsData]);
     }
   }, [
     bodyPartsData,
-    exercisesData,
-    isFetchingAllWorkouts,
-    isFetchingBodyParts,
+    // exercisesData,
+    // isFetchingAllWorkouts,
+    // isFetchingBodyParts,
   ]);
 
   const handleSearch = () => {
     if (search) {
       // THIS MUST BE exercisesData CUZ exercises IS A STATE AND IT'S BEING UPDATED
-      const searchExercises = exercisesData.filter(
+      // const searchExercises = exercisesData.filter(
+      const searchExercises = exercises.filter(
         (exercise) =>
           exercise.name.toLowerCase().includes(search.toLowerCase()) ||
           exercise.bodyPart.toLowerCase().includes(search.toLowerCase()) ||
@@ -60,17 +61,15 @@ const SearchExercises = ({
 
       setSearch('');
       setExercises(searchExercises);
-      setCurrentPage(1);
-
-      // console.log('Filtered Search result:', searchExercises);
-      // console.log('Filtered Exercises:', exercises);
+      console.log('Filtered Search result:', searchExercises);
+      console.log('Filtered Exercises:', exercises);
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
     }
   };
 
   // if (isFetchingBodyParts) return 'Loading...';
-  // if (!exercises) return <Loader />;
-  if (isFetchingAllWorkouts || isFetchingBodyParts) return <Loader />;
+  // if (isFetchingAllWorkouts || isFetchingBodyParts) return 'Loading...';
+  if (!exercises) return <Loader />;
 
   return (
     <div className='search-container'>

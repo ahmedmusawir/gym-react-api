@@ -7,7 +7,8 @@ import Exercises from '../components/Exercises';
 function Home() {
   const [bodyPart, setBodyPart] = useState('all');
   const [exercises, setExercises] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+
+  console.log('Home exercises STATE: ', exercises);
 
   return (
     <Box>
@@ -20,14 +21,11 @@ function Home() {
         bodyPart={bodyPart}
         setBodyPart={setBodyPart}
         className='search-exercises'
-        setCurrentPage={setCurrentPage}
       />
       <Exercises
         exercises={exercises}
         setExercises={setExercises}
         bodyPart={bodyPart}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
       />
     </Box>
   );

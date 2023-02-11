@@ -3,11 +3,22 @@ import { Box } from '@mui/material';
 import HeroBanner from '../components/HeroBanner';
 import SearchExercises from '../components/SearchExercises';
 import Exercises from '../components/Exercises';
+import { exercisesData } from '../data/exercisesData';
 
 function Home() {
   const [bodyPart, setBodyPart] = useState('all');
   const [exercises, setExercises] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    if (exercisesData) {
+      setExercises(exercisesData);
+    }
+  }, [
+    // bodyPartsData,
+    exercisesData,
+    // isFetchingAllWorkouts,
+    // isFetchingBodyParts,
+  ]);
 
   return (
     <Box>
@@ -20,14 +31,11 @@ function Home() {
         bodyPart={bodyPart}
         setBodyPart={setBodyPart}
         className='search-exercises'
-        setCurrentPage={setCurrentPage}
       />
       <Exercises
         exercises={exercises}
         setExercises={setExercises}
         bodyPart={bodyPart}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
       />
     </Box>
   );
