@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Box, Stack } from '@mui/material';
+import { Box } from '@mui/material';
 import HeroBanner from '../components/HeroBanner';
 import SearchExercises from '../components/SearchExercises';
 import Exercises from '../components/Exercises';
 import { useGetAllWorkoutsQuery } from '../services/gymApi';
-import { Audio } from 'react-loader-spinner';
 
 function Home() {
   const [bodyPart, setBodyPart] = useState('all');
   const [exercises, setExercises] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
     useGetAllWorkoutsQuery();
@@ -20,28 +18,6 @@ function Home() {
       setExercises(exercisesData);
     }
   }, []);
-
-  if (isFetchingAllWorkouts)
-    return (
-      <Stack
-        alignItems={'center'}
-        mt='37px'
-        justifyContent={'center'}
-        p='20px'
-        className='search-exercises'
-        maxWidth={'xl'}
-      >
-        <Audio
-          height='80'
-          width='80'
-          radius='9'
-          color='yellow'
-          ariaLabel='loading'
-          wrapperStyle
-          wrapperClass
-        />
-      </Stack>
-    );
 
   return (
     <Box>
@@ -55,7 +31,6 @@ function Home() {
         setBodyPart={setBodyPart}
         className='search-exercises'
         setCurrentPage={setCurrentPage}
-        setIsLoading={setIsLoading}
       />
       <Exercises
         exercises={exercises}
@@ -63,8 +38,6 @@ function Home() {
         bodyPart={bodyPart}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
       />
     </Box>
   );

@@ -43,7 +43,9 @@ export const gymApi = createApi({
 export const {
   useGetGymCategoriesQuery,
   useGetAllWorkoutsQuery,
+  useLazyGetAllWorkoutsQuery,
   useGetWorkoutByBodyPartQuery,
+  useLazyGetWorkoutByBodyPartQuery,
   useGetSingleWorkoutQuery,
   useGetTargetWorkoutQuery,
   useGetEquipmentWorkoutQuery,
@@ -65,5 +67,5 @@ export const {
 // moose@cyberizegroup.com
 // CYBERIZE API FROM RAPID API
 
-// 'X-RapidAPI-Key': '7fe701ab34mshb5fbb7b29ae9accp1485a6jsna5fab91f7aed',
+// 'X-RapidAPI-Key': '7ff701ab34mshb5fbb7b29ae9accp1485a6jsna5fab91f7aed',
 //     'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'

@@ -2,10 +2,47 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
 
-import ExerciseCard from './ExerciseCard';
+import {
+  useLazyGetAllWorkoutsQuery,
+  useLazyGetWorkoutByBodyPartQuery,
+} from '../services/gymApi';
 
-const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
+import ExerciseCard from './ExerciseCard';
+import Loader from './Loader';
+
+const Exercises = ({
+  exercises,
+  setExercises,
+  bodyPart,
+  currentPage,
+  setCurrentPage,
+}) => {
   const [exercisesPerPage] = useState(6);
+  const [
+    getAllWorkouts,
+    { data: exercisesData, isFetching: isFetchingAllWorkouts },
+  ] = useLazyGetAllWorkoutsQuery();
+
+  const [
+    getWorkoutByPart,
+    { data: exercisesDataByCategory, isFetching: isFetchingByCategory },
+  ] = useLazyGetWorkoutByBodyPartQuery();
+
+  useEffect(() => {
+    console.log('useEffect Exercise.jsx:', bodyPart);
+    // if (exercisesData) {
+    if (exercisesData && exercisesDataByCategory) {
+      if (bodyPart === 'all') {
+        // getAllWorkouts();
+        setExercises(exercisesData);
+        console.log('Exercise Data:', exercisesData);
+      } else {
+        getWorkoutByPart(bodyPart);
+        setExercises(exercisesDataByCategory);
+        setCurrentPage(1);
+      }
+    }
+  }, [bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
 
   // PAGINATION
   const indexOfLastExercise = currentPage * exercisesPerPage;
@@ -21,6 +58,14 @@ const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
 
+  // if (isFetchingByCategory) return <Loader />;
+  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
+
+  // console.log('Exercises:', exercises);
+  console.log('Exercise Data:', exercisesData);
+
+  console.log('Current Exercises:', currentExercises);
+
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>
       <Typography
@@ -30,7 +75,6 @@ const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
       >
         Showing Results
       </Typography>
-
       <Stack
         direction='row'
         sx={{ gap: '110px', xs: '50px' }}

@@ -29,10 +29,12 @@ const RightArrow = () => {
 
 const HorizontalScrollbar = ({
   data,
-  bodyParts,
   setBodyPart,
   bodyPart,
   isBodyPart,
+  setExercises,
+  setCurrentPage,
+  setIsLoading,
 }) => {
   // console.log('Body Parts in Scrollbar:', data);
 
@@ -52,6 +54,9 @@ const HorizontalScrollbar = ({
                 item={item}
                 setBodyPart={setBodyPart}
                 bodyPart={bodyPart}
+                setExercises={setExercises}
+                setCurrentPage={setCurrentPage}
+                setIsLoading={setIsLoading}
               />
             ) : (
               <ExerciseCard exercise={item} />

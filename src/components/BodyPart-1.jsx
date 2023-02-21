@@ -3,7 +3,6 @@ import { Stack, Typography } from '@mui/material';
 import Icon from '../assets/icons/gym.png';
 import {
   useGetAllWorkoutsQuery,
-  useLazyGetAllWorkoutsQuery,
   useLazyGetWorkoutByBodyPartQuery,
 } from '../services/gymApi';
 import Loader from './Loader';
@@ -15,13 +14,10 @@ const BodyPart = ({
   setExercises,
   setCurrentPage,
 }) => {
-  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-  //   useGetAllWorkoutsQuery();
-
-  const [
-    getAllData,
-    { data: exercisesData, isFetching: isFetchingAllWorkouts },
-  ] = useLazyGetAllWorkoutsQuery();
+  // console.log('Item:', item);
+  // console.log('bodyPart:', bodyPart);
+  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+    useGetAllWorkoutsQuery();
 
   const [
     getDataByBodyPart,
@@ -29,11 +25,15 @@ const BodyPart = ({
   ] = useLazyGetWorkoutByBodyPartQuery();
 
   useEffect(() => {
-    // console.log('bodyPart - Exercise.jsx:', bodyPart);
-    if (exercisesData || exercisesDataByCategory) {
-      setExercises(exercisesData);
-      setExercises(exercisesDataByCategory);
-      setCurrentPage(1);
+    console.log('bodyPart - Exercise.jsx:', bodyPart);
+    if (exercisesData && exercisesDataByCategory) {
+      if (bodyPart === 'all') {
+        setExercises(exercisesData);
+        setCurrentPage(1);
+      } else {
+        setExercises(exercisesDataByCategory);
+        setCurrentPage(1);
+      }
     }
   }, [
     bodyPart,
@@ -67,11 +67,7 @@ const BodyPart = ({
         setBodyPart(item);
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
         console.log('BodyPart.jsx:', bodyPart);
-        if (item !== 'all') {
-          getDataByBodyPart(item);
-        } else {
-          getAllData();
-        }
+        getDataByBodyPart(item);
       }}
     >
       <img

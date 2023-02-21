@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { Stack, Typography } from '@mui/material';
 import Icon from '../assets/icons/gym.png';
 import {
-  useGetAllWorkoutsQuery,
   useLazyGetAllWorkoutsQuery,
   useLazyGetWorkoutByBodyPartQuery,
 } from '../services/gymApi';
-import Loader from './Loader';
 
 const BodyPart = ({
   item,
@@ -14,10 +12,10 @@ const BodyPart = ({
   setBodyPart,
   setExercises,
   setCurrentPage,
+  setIsLoading,
 }) => {
-  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-  //   useGetAllWorkoutsQuery();
-
+  // console.log('Item:', item);
+  // console.log('bodyPart:', bodyPart);
   const [
     getAllData,
     { data: exercisesData, isFetching: isFetchingAllWorkouts },
@@ -29,11 +27,14 @@ const BodyPart = ({
   ] = useLazyGetWorkoutByBodyPartQuery();
 
   useEffect(() => {
-    // console.log('bodyPart - Exercise.jsx:', bodyPart);
-    if (exercisesData || exercisesDataByCategory) {
-      setExercises(exercisesData);
-      setExercises(exercisesDataByCategory);
-      setCurrentPage(1);
+    if (exercisesData && exercisesDataByCategory) {
+      if (bodyPart === 'all') {
+        setExercises(exercisesData);
+        setCurrentPage(1);
+      } else {
+        setExercises(exercisesDataByCategory);
+        setCurrentPage(1);
+      }
     }
   }, [
     bodyPart,
@@ -43,7 +44,8 @@ const BodyPart = ({
     isFetchingByCategory,
   ]);
 
-  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
+  if (isFetchingAllWorkouts || isFetchingByCategory) return 'Loading...';
+  // if (isFetchingAllWorkouts || isFetchingByCategory) return setIsLoading(true);
 
   console.log('Data By Part:', exercisesDataByCategory);
 
@@ -67,10 +69,10 @@ const BodyPart = ({
         setBodyPart(item);
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
         console.log('BodyPart.jsx:', bodyPart);
-        if (item !== 'all') {
-          getDataByBodyPart(item);
-        } else {
+        if (item === 'all') {
           getAllData();
+        } else {
+          getDataByBodyPart(item);
         }
       }}
     >

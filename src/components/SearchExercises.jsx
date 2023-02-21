@@ -15,6 +15,7 @@ const SearchExercises = ({
   bodyPart,
   setBodyPart,
   setCurrentPage,
+  setIsLoading,
 }) => {
   const [search, setSearch] = useState('');
   const [bodyParts, setBodyParts] = useState([]);
@@ -139,6 +140,9 @@ const SearchExercises = ({
               bodyPart={bodyPart}
               setBodyPart={setBodyPart}
               isBodyPart
+              setExercises={setExercises}
+              setCurrentPage={setCurrentPage}
+              setIsLoading={setIsLoading}
             />
           </Box>
         </Stack>

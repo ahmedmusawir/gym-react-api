@@ -2,10 +2,43 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
 
-import ExerciseCard from './ExerciseCard';
+import {
+  useGetAllWorkoutsQuery,
+  useGetWorkoutByBodyPartQuery,
+} from '../services/gymApi';
+// import { exercisesData } from '../data/exercisesData';
 
-const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
+import ExerciseCard from './ExerciseCard';
+import Loader from './Loader';
+
+const Exercises = ({
+  exercises,
+  setExercises,
+  bodyPart,
+  currentPage,
+  setCurrentPage,
+}) => {
   const [exercisesPerPage] = useState(6);
+  const [isNotOk, setIsNotOk] = useState(true);
+  const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
+    useGetAllWorkoutsQuery();
+
+  const { data: exercisesDataByCategory, isFetching: isFetchingByCategory } =
+    useGetWorkoutByBodyPartQuery(bodyPart);
+
+  useEffect(() => {
+    console.log('Exercise.jsx:', bodyPart);
+    if (exercisesData && exercisesDataByCategory) {
+      if (bodyPart === 'all') {
+        setExercises(exercisesData);
+        // setCurrentPage(1);
+      } else {
+        setExercises(exercisesDataByCategory);
+        setCurrentPage(1);
+      }
+    }
+    // }, [exercisesData, bodyPart, isFetchingByCategory]);
+  }, [exercisesData, bodyPart, isFetchingAllWorkouts, isFetchingByCategory]);
 
   // PAGINATION
   const indexOfLastExercise = currentPage * exercisesPerPage;
@@ -21,6 +54,12 @@ const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
 
+  // if (isFetchingByCategory) return <Loader />;
+  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
+
+  console.log('Exercises:', exercises);
+  console.log('Current Exercises:', currentExercises);
+
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>
       <Typography
@@ -30,7 +69,6 @@ const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
       >
         Showing Results
       </Typography>
-
       <Stack
         direction='row'
         sx={{ gap: '110px', xs: '50px' }}
