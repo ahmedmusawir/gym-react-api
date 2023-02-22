@@ -3,15 +3,7 @@ import { Stack, Typography } from '@mui/material';
 import Icon from '../assets/icons/gym.png';
 import { useLazyGetAllWorkoutsQuery } from '../services/gymApi';
 
-import Loader from './Loader';
-
-const BodyPart = ({
-  item,
-  bodyPart,
-  setBodyPart,
-  setExercises,
-  setCurrentPage,
-}) => {
+const BodyPart = ({ item, bodyPart, setBodyPart, setExercises }) => {
   // console.log('Item:', item);
   // console.log('bodyPart:', bodyPart);
   const [
@@ -46,7 +38,7 @@ const BodyPart = ({
         setBodyPart(item);
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
         console.log('BodyPart.jsx:', bodyPart);
-        if (bodyPart === 'all') {
+        if (item === 'all') {
           getAllData();
           console.log('Filling up all BodyPart');
         }

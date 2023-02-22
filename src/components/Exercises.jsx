@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
+import { FallingLines, ThreeDots } from 'react-loader-spinner';
 
 import {
   useLazyGetAllWorkoutsQuery,
@@ -62,7 +63,6 @@ const Exercises = ({
   };
 
   // if (isFetchingByCategory) return <Loader />;
-  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
 
   // console.log('Exercises:', exercises);
   // console.log('Exercise Data:', exercisesData);
@@ -76,8 +76,28 @@ const Exercises = ({
         mb='46px'
         sx={{ textAlign: 'center', color: 'white' }}
       >
+        {isFetchingByCategory && (
+          <Stack
+            alignItems={'center'}
+            my='37px'
+            justifyContent={'center'}
+            p='20px'
+            className=''
+            maxWidth={'100%'}
+          >
+            <ThreeDots
+              height='80'
+              width='80'
+              radius='9'
+              color='yellow'
+              ariaLabel='three-dots-loading'
+              visible={true}
+            />
+          </Stack>
+        )}
         Showing Results
       </Typography>
+
       <Stack
         direction='row'
         sx={{ gap: '110px', xs: '50px' }}

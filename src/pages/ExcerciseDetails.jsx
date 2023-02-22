@@ -30,8 +30,6 @@ function ExerciseDetails() {
           radius='9'
           color='yellow'
           ariaLabel='loading'
-          wrapperStyle
-          wrapperClass
         />
       </Stack>
     );
