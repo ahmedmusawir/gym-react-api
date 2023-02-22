@@ -1,13 +1,33 @@
 import React from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useGetYoutubeQuery } from '../services/youtubeApi';
-import Loader from './Loader';
+import { Audio } from 'react-loader-spinner';
 
 function ExerciseVideos({ exerciseName }) {
   const { data: youtubeData, isFetching } = useGetYoutubeQuery(exerciseName);
   // console.log('Exercise Videos:', youtubeData);
 
-  if (isFetching) return <Loader />;
+  if (isFetching)
+    return (
+      <Stack
+        alignItems={'center'}
+        mt='37px'
+        justifyContent={'center'}
+        p='20px'
+        className='search-exercises'
+        maxWidth={'xl'}
+      >
+        <Audio
+          height='80'
+          width='80'
+          radius='9'
+          color='yellow'
+          ariaLabel='loading'
+          wrapperStyle
+          wrapperClass
+        />
+      </Stack>
+    );
 
   // API DATA IS NOT CONSISTANT. SO HAD TO FILTER OUT THE OTHER STUFF LIKE 'channel' DATA
   const data = youtubeData?.contents;

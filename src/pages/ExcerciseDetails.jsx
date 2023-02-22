@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import Details from '../components/Details';
 import ExerciseVideos from '../components/ExerciseVideos';
 import SimilarExercises from '../components/SimilarExercises';
 import { useGetSingleProductQuery } from '../services/dummyJsonApi';
 import { useGetSingleWorkoutQuery } from '../services/gymApi';
-import Loader from '../components/Loader';
+import { Audio } from 'react-loader-spinner';
 
 function ExerciseDetails() {
   const { id } = useParams();
@@ -14,7 +14,27 @@ function ExerciseDetails() {
     useGetSingleWorkoutQuery(id);
   console.log('Single Product Raw:', singleExercise);
 
-  if (fetchingSingle) return <Loader />;
+  if (fetchingSingle)
+    return (
+      <Stack
+        alignItems={'center'}
+        mt='37px'
+        justifyContent={'center'}
+        p='20px'
+        className='search-exercises'
+        maxWidth={'xl'}
+      >
+        <Audio
+          height='80'
+          width='80'
+          radius='9'
+          color='yellow'
+          ariaLabel='loading'
+          wrapperStyle
+          wrapperClass
+        />
+      </Stack>
+    );
 
   return (
     <Box width={'400px'} sx={{ width: { xl: '1488px' } }} m='auto'>

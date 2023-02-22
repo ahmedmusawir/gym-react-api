@@ -22,7 +22,8 @@ const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
   };
 
   return (
-    <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='50px' p={'20px'}>
+    <Box id='exercises' mt={'80px'} p={'20px'}>
+      {/* <Box id='exercises' sx={{ mt: { lg: '110px' } }} p={'20px'}> */}
       <Typography
         variant='h4'
         mb='46px'
