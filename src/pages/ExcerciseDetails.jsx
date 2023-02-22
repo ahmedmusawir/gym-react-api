@@ -21,7 +21,7 @@ function ExerciseDetails() {
         mt='37px'
         justifyContent={'center'}
         p='20px'
-        className='search-exercises'
+        className=''
         maxWidth={'xl'}
       >
         <Audio

@@ -10,7 +10,6 @@ function Home() {
   const [bodyPart, setBodyPart] = useState('all');
   const [exercises, setExercises] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
     useGetAllWorkoutsQuery();
@@ -47,13 +46,11 @@ function Home() {
         <HeroBanner />
       </Box>
       <SearchExercises
-        exercises={exercises}
         setExercises={setExercises}
         bodyPart={bodyPart}
         setBodyPart={setBodyPart}
         className='search-exercises'
         setCurrentPage={setCurrentPage}
-        setIsLoading={setIsLoading}
       />
       <Exercises
         exercises={exercises}
@@ -61,8 +58,6 @@ function Home() {
         bodyPart={bodyPart}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
       />
     </Box>
   );

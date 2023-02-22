@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
-import { FallingLines, ThreeDots } from 'react-loader-spinner';
-
-import {
-  useLazyGetAllWorkoutsQuery,
-  useLazyGetWorkoutByBodyPartQuery,
-} from '../services/gymApi';
-
+import { ThreeDots } from 'react-loader-spinner';
 import ExerciseCard from './ExerciseCard';
-import Loader from './Loader';
+import { useLazyGetWorkoutByBodyPartQuery } from '../services/gymApi';
 
 const Exercises = ({
   exercises,
@@ -19,10 +13,6 @@ const Exercises = ({
   setCurrentPage,
 }) => {
   const [exercisesPerPage] = useState(6);
-  const [
-    getAllWorkouts,
-    { data: exercisesData, isFetching: isFetchingAllWorkouts },
-  ] = useLazyGetAllWorkoutsQuery();
 
   const [
     getWorkoutByPart,
@@ -30,10 +20,7 @@ const Exercises = ({
   ] = useLazyGetWorkoutByBodyPartQuery();
 
   useEffect(() => {
-    console.log('useEffect Exercise.jsx:', bodyPart);
-
     if (bodyPart !== 'all') {
-      console.log('bodyPart should not be all', bodyPart);
       getWorkoutByPart(bodyPart);
     }
     setCurrentPage(1);
@@ -42,17 +29,12 @@ const Exercises = ({
   useEffect(() => {
     if (exercisesDataByCategory) {
       setExercises(exercisesDataByCategory);
-      console.log('Exercise Data useEffect:', exercisesData);
     }
   }, [exercisesDataByCategory]);
 
-  console.log('Exercise Data by Category:', exercisesDataByCategory);
-
   // PAGINATION
   const indexOfLastExercise = currentPage * exercisesPerPage;
-  // console.log('indexOfLastExercise in Exercises.jsx:', indexOfLastExercise);
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  // console.log('indexOfFirstExercise in Exercises.jsx:', indexOfFirstExercise);
   const currentExercises = exercises?.slice(
     indexOfFirstExercise,
     indexOfLastExercise
@@ -61,13 +43,6 @@ const Exercises = ({
     setCurrentPage(value);
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
-
-  // if (isFetchingByCategory) return <Loader />;
-
-  // console.log('Exercises:', exercises);
-  // console.log('Exercise Data:', exercisesData);
-
-  // console.log('Current Exercises:', currentExercises);
 
   return (
     <Box id='exercises' mt='80px' p={'20px'}>

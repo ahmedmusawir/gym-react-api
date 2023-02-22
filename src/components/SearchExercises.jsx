@@ -5,12 +5,9 @@ import {
   useGetAllWorkoutsQuery,
   useGetGymCategoriesQuery,
 } from '../services/gymApi';
-// import { bodyPartsData } from '../data/bodyPartsData';
-// import { exercisesData } from '../data/exercisesData';
 import Loader from './Loader';
 
 const SearchExercises = ({
-  exercises,
   setExercises,
   bodyPart,
   setBodyPart,
@@ -20,25 +17,17 @@ const SearchExercises = ({
   const [search, setSearch] = useState('');
   const [bodyParts, setBodyParts] = useState([]);
 
-  // THE FOLLOWING WORKS. ONLY USGING STATIC DATA DUE TO API HARD LIMITS
-
   const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
     useGetAllWorkoutsQuery();
-  // console.log('Raw data from API - Exercises:', exercisesData);
 
   const { data: bodyPartsData, isFetching: isFetchingBodyParts } =
     useGetGymCategoriesQuery();
-  // console.log('Raw data from API - Body Parts:', bodyPartsData);
-
-  // console.log('Exercise Local Data', exerciseData);
-  // console.log('Exercise Categories Local Data', bodyPartsData);
 
   useEffect(() => {
     if (exercisesData) {
       setExercises(exercisesData);
     }
     if (bodyPartsData) {
-      // setBodyParts(['all'].concat(bodyPartsData));
       setBodyParts(['all', ...bodyPartsData]);
     }
   }, [
@@ -50,7 +39,6 @@ const SearchExercises = ({
 
   const handleSearch = () => {
     if (search) {
-      // THIS MUST BE exercisesData CUZ exercises IS A STATE AND IT'S BEING UPDATED
       const searchExercises = exercisesData.filter(
         (exercise) =>
           exercise.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -63,14 +51,10 @@ const SearchExercises = ({
       setExercises(searchExercises);
       setCurrentPage(1);
 
-      // console.log('Filtered Search result:', searchExercises);
-      // console.log('Filtered Exercises:', exercises);
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
     }
   };
 
-  // if (isFetchingBodyParts) return 'Loading...';
-  // if (!exercises) return <Loader />;
   if (isFetchingAllWorkouts || isFetchingBodyParts) return <Loader />;
 
   return (
@@ -127,7 +111,6 @@ const SearchExercises = ({
                 width: { lg: '175px', xs: '80px' },
                 fontSize: { lg: '20px', xs: '14px' },
                 height: '56px',
-                // position: 'absolute',
               }}
               onClick={handleSearch}
             >

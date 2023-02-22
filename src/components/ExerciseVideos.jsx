@@ -5,7 +5,6 @@ import { Audio } from 'react-loader-spinner';
 
 function ExerciseVideos({ exerciseName }) {
   const { data: youtubeData, isFetching } = useGetYoutubeQuery(exerciseName);
-  // console.log('Exercise Videos:', youtubeData);
 
   if (isFetching)
     return (
@@ -14,7 +13,7 @@ function ExerciseVideos({ exerciseName }) {
         mt='37px'
         justifyContent={'center'}
         p='20px'
-        className='search-exercises'
+        className=''
         maxWidth={'xl'}
       >
         <Audio
@@ -23,8 +22,6 @@ function ExerciseVideos({ exerciseName }) {
           radius='9'
           color='yellow'
           ariaLabel='loading'
-          wrapperStyle
-          wrapperClass
         />
       </Stack>
     );
@@ -33,7 +30,6 @@ function ExerciseVideos({ exerciseName }) {
   const data = youtubeData?.contents;
 
   const videoData = data.filter((item) => item.video);
-  // console.log(videoData);
 
   return (
     <Box sx={{ mt: { lg: '200px', xs: '50px' } }} p='20px'>
