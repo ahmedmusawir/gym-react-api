@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { Stack, Typography } from '@mui/material';
 import Icon from '../assets/icons/gym.png';
-import {
-  useGetAllWorkoutsQuery,
-  useLazyGetAllWorkoutsQuery,
-  useLazyGetWorkoutByBodyPartQuery,
-} from '../services/gymApi';
+import { useLazyGetAllWorkoutsQuery } from '../services/gymApi';
+
 import Loader from './Loader';
 
 const BodyPart = ({
@@ -15,37 +12,19 @@ const BodyPart = ({
   setExercises,
   setCurrentPage,
 }) => {
-  // const { data: exercisesData, isFetching: isFetchingAllWorkouts } =
-  //   useGetAllWorkoutsQuery();
-
+  // console.log('Item:', item);
+  // console.log('bodyPart:', bodyPart);
   const [
     getAllData,
     { data: exercisesData, isFetching: isFetchingAllWorkouts },
   ] = useLazyGetAllWorkoutsQuery();
 
-  const [
-    getDataByBodyPart,
-    { data: exercisesDataByCategory, isFetching: isFetchingByCategory },
-  ] = useLazyGetWorkoutByBodyPartQuery();
-
   useEffect(() => {
-    // console.log('bodyPart - Exercise.jsx:', bodyPart);
-    if (exercisesData || exercisesDataByCategory) {
+    if (exercisesData) {
       setExercises(exercisesData);
-      setExercises(exercisesDataByCategory);
-      setCurrentPage(1);
+      console.log('Exercise Data useEffect:', exercisesData);
     }
-  }, [
-    bodyPart,
-    exercisesData,
-    exercisesDataByCategory,
-    isFetchingAllWorkouts,
-    isFetchingByCategory,
-  ]);
-
-  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
-
-  console.log('Data By Part:', exercisesDataByCategory);
+  }, [exercisesData]);
 
   return (
     <Stack
@@ -67,10 +46,9 @@ const BodyPart = ({
         setBodyPart(item);
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
         console.log('BodyPart.jsx:', bodyPart);
-        if (item !== 'all') {
-          getDataByBodyPart(item);
-        } else {
+        if (bodyPart === 'all') {
           getAllData();
+          console.log('Filling up all BodyPart');
         }
       }}
     >

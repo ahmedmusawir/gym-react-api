@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react';
 import { Stack, Typography } from '@mui/material';
 import Icon from '../assets/icons/gym.png';
-import {
-  useGetAllWorkoutsQuery,
-  useLazyGetAllWorkoutsQuery,
-  useLazyGetWorkoutByBodyPartQuery,
-} from '../services/gymApi';
+
 import Loader from './Loader';
 
 const BodyPart = ({
@@ -15,34 +11,8 @@ const BodyPart = ({
   setExercises,
   setCurrentPage,
 }) => {
-  const [
-    getAllData,
-    { data: exercisesData, isFetching: isFetchingAllWorkouts },
-  ] = useLazyGetAllWorkoutsQuery();
-
-  const [
-    getDataByBodyPart,
-    { data: exercisesDataByCategory, isFetching: isFetchingByCategory },
-  ] = useLazyGetWorkoutByBodyPartQuery();
-
-  useEffect(() => {
-    // console.log('bodyPart - Exercise.jsx:', bodyPart);
-    if (exercisesData || exercisesDataByCategory) {
-      setExercises(exercisesData);
-      setExercises(exercisesDataByCategory);
-      setCurrentPage(1);
-    }
-  }, [
-    bodyPart,
-    exercisesData,
-    exercisesDataByCategory,
-    isFetchingAllWorkouts,
-    isFetchingByCategory,
-  ]);
-
-  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
-
-  console.log('Data By Part:', exercisesDataByCategory);
+  // console.log('Item:', item);
+  // console.log('bodyPart:', bodyPart);
 
   return (
     <Stack
@@ -64,11 +34,6 @@ const BodyPart = ({
         setBodyPart(item);
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
         console.log('BodyPart.jsx:', bodyPart);
-        if (item !== 'all') {
-          getDataByBodyPart(item);
-        } else {
-          getAllData();
-        }
       }}
     >
       <img

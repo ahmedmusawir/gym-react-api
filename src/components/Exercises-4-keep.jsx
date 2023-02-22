@@ -2,56 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
 
-import {
-  useLazyGetAllWorkoutsQuery,
-  useLazyGetWorkoutByBodyPartQuery,
-} from '../services/gymApi';
-
 import ExerciseCard from './ExerciseCard';
-import Loader from './Loader';
 
-const Exercises = ({
-  exercises,
-  setExercises,
-  bodyPart,
-  currentPage,
-  setCurrentPage,
-}) => {
+const Exercises = ({ exercises, currentPage, setCurrentPage }) => {
   const [exercisesPerPage] = useState(6);
-  const [
-    getAllWorkouts,
-    { data: exercisesData, isFetching: isFetchingAllWorkouts },
-  ] = useLazyGetAllWorkoutsQuery();
-
-  const [
-    getWorkoutByPart,
-    { data: exercisesDataByCategory, isFetching: isFetchingByCategory },
-  ] = useLazyGetWorkoutByBodyPartQuery();
-
-  useEffect(() => {
-    console.log('useEffect Exercise.jsx:', bodyPart);
-
-    if (bodyPart !== 'all') {
-      console.log('bodyPart should not be all', bodyPart);
-      getWorkoutByPart(bodyPart);
-    }
-    setCurrentPage(1);
-  }, [bodyPart]);
-
-  useEffect(() => {
-    if (exercisesDataByCategory) {
-      setExercises(exercisesDataByCategory);
-      console.log('Exercise Data useEffect:', exercisesData);
-    }
-  }, [exercisesDataByCategory]);
-
-  console.log('Exercise Data by Category:', exercisesDataByCategory);
 
   // PAGINATION
   const indexOfLastExercise = currentPage * exercisesPerPage;
-  // console.log('indexOfLastExercise in Exercises.jsx:', indexOfLastExercise);
+  console.log('indexOfLastExercise in Exercises.jsx:', indexOfLastExercise);
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  // console.log('indexOfFirstExercise in Exercises.jsx:', indexOfFirstExercise);
+  console.log('indexOfFirstExercise in Exercises.jsx:', indexOfFirstExercise);
   const currentExercises = exercises?.slice(
     indexOfFirstExercise,
     indexOfLastExercise
@@ -61,16 +21,9 @@ const Exercises = ({
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
 
-  // if (isFetchingByCategory) return <Loader />;
-  if (isFetchingAllWorkouts || isFetchingByCategory) return <Loader />;
-
-  // console.log('Exercises:', exercises);
-  // console.log('Exercise Data:', exercisesData);
-
-  // console.log('Current Exercises:', currentExercises);
-
   return (
-    <Box id='exercises' mt='80px' p={'20px'}>
+    <Box id='exercises' mt={'80px'} p={'20px'}>
+      {/* <Box id='exercises' sx={{ mt: { lg: '110px' } }} p={'20px'}> */}
       <Typography
         variant='h4'
         mb='46px'
@@ -78,6 +31,7 @@ const Exercises = ({
       >
         Showing Results
       </Typography>
+
       <Stack
         direction='row'
         sx={{ gap: '110px', xs: '50px' }}
